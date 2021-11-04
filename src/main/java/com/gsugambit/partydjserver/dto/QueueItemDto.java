@@ -6,8 +6,17 @@ import com.gsugambit.partydjserver.model.QueueItem;
 
 public class QueueItemDto {
 
+	private String stationId;
 	private String url;
 	private String user;
+	
+	public String getStation() {
+		return stationId;
+	}
+	
+	public void setStationId(String stationId) {
+		this.stationId = stationId;
+	}
 	
 	public String getUrl() {
 		return url;

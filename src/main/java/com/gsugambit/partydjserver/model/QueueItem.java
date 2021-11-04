@@ -9,6 +9,7 @@ import lombok.Data;
 public class QueueItem {
 	
 	private String id;
+	private String stationId;
 	private long index;
 	private String url;
 	private boolean played;
@@ -20,6 +21,14 @@ public class QueueItem {
 	
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public String getStation() {
+		return stationId;
+	}
+	
+	public void setStationId(String stationId) {
+		this.stationId = stationId;
 	}
 	
 	public long getIndex() {
