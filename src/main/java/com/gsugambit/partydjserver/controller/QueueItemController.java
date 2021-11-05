@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gsugambit.partydjserver.dto.QueueItemDto;
 import com.gsugambit.partydjserver.model.QueueItem;
+import com.gsugambit.partydjserver.model.Station;
 import com.gsugambit.partydjserver.service.QueueItemService;
 
 @CrossOrigin
@@ -35,7 +36,7 @@ public class QueueItemController {
 	}
 
 	@PostMapping("{stationId}/queue-item")
-	public QueueItem addToQueue(@PathVariable String stationId, @RequestBody QueueItemDto item) {
+	public Station addToQueue(@PathVariable String stationId, @RequestBody QueueItemDto item) {
 		return queueService.addQueueItem(stationId, item.convert());
 	}
 	
@@ -57,8 +58,7 @@ public class QueueItemController {
 	}
 	
 	@DeleteMapping("{stationId}/delete-queue")
-	public boolean deleteQueue(@PathVariable String stationId) {
-		queueService.deleteQueue(stationId);
-		return true;
+	public Station deleteQueue(@PathVariable String stationId) {
+		return queueService.deleteQueue(stationId);
 	}
 }

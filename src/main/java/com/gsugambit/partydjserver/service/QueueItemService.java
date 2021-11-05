@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.SerializationUtils;
 import org.springframework.util.StringUtils;
 
 import com.gsugambit.partydjserver.model.Station;
+import com.gsugambit.partydjserver.utils.CloneUtils;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.gsugambit.partydjserver.model.QueueItem;
 
 @Service
@@ -23,12 +27,23 @@ public class QueueItemService {
 	private static final List<Station> STATION_LIST = new ArrayList<>();
 	private static final Map<String, List<QueueItem>> STATION_QUEUE_LIST = new HashMap<>();
 	
-	public QueueItem addQueueItem(String stationId, QueueItem newQueueItem) {
-		if(!STATION_QUEUE_LIST.containsKey(stationId)) {
-			throw new RuntimeException("cannot create queue items for station: " 
-					+ stationId +  " because it does not exist" );
+	public Station addQueueItem(String stationId, QueueItem newQueueItem) {
+		
+		Optional<Station> opStation = STATION_LIST.stream()
+				.filter(station -> station.getId().equals(stationId))
+				.findFirst();
+		
+		if(opStation.isEmpty()) {
+			throw new RuntimeException("station: " 
+					+ stationId +  " does not exist." );
 		}
 		
+		if(!STATION_QUEUE_LIST.containsKey(stationId)) {
+			throw new RuntimeException("queue for station: " 
+					+ stationId +  " does not exist" );
+		}
+		
+		Station station = opStation.get();
 		List<QueueItem> queueItemList = STATION_QUEUE_LIST.get(stationId);
 		
 		long itemsInQueue = queueItemList.size();
@@ -45,9 +60,13 @@ public class QueueItemService {
 		
 		queueItemList.add(newQueueItem);
 		
-		LOGGER.info("User added to item: {} with index: {} to queue.", newQueueItem.getUrl(), newQueueItem.getIndex());
+		LOGGER.info("User added to item: {} with index: {} to queue for station: {}."
+				, newQueueItem.getUrl(), newQueueItem.getIndex(), stationId);
 		
-		return newQueueItem;		
+		Station returnStation = CloneUtils.clone(station, new TypeReference<Station>() {
+		});
+		
+		return returnStation;		
 	}
 
 	public QueueItem getCurrentItem(String stationId) {
@@ -67,12 +86,24 @@ public class QueueItemService {
 		return null;
 	}
 
-	public void deleteQueue(String stationId) {
+	public Station deleteQueue(String stationId) {
+		Optional<Station> stationOp =
+				STATION_LIST.stream()
+				.filter(station -> station.getId().equals(stationId)).findFirst();
+		
+		if(stationOp.isEmpty()) {
+			throw new RuntimeException("cannot find station with id: " + stationId);
+		}
+		
+		Station station = stationOp.get();
+		
 		if(STATION_QUEUE_LIST.containsKey(stationId)) {
 			List<QueueItem> queueItemList = STATION_QUEUE_LIST.get(stationId);
 			LOGGER.info("Clearing the queue for station: {}", stationId);
 			queueItemList.clear();
 		}
+		
+		return station;
 	}
 
 	public QueueItem played(String stationId, String songId) {
@@ -136,8 +167,11 @@ public class QueueItemService {
 		Station station = stationOp.get();
 		List<QueueItem> queueItems = STATION_QUEUE_LIST.get(stationId);
 		queueItems.forEach(item -> item.setStationId(stationId));
-		station.setQueue(queueItems);
-		return station;
 		
+		Station returnStation = CloneUtils.clone(station, new TypeReference<Station>() {
+		});
+		
+		returnStation.setQueue(queueItems);
+		return returnStation;
 	}
 }
