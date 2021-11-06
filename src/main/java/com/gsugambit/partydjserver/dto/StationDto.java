@@ -17,6 +17,13 @@ public class StationDto {
 		this.name = name;
 	}
 	
+	public Station convert() {
+		Station item = new Station();
+		item.setName(this.name);
+		
+		return item;
+	}
+	
 	@Override
 	public String toString() {
 		try {
@@ -24,12 +31,5 @@ public class StationDto {
 		} catch (JsonProcessingException e) {
 			return super.toString();
 		}
-	}
-	
-	public Station convert() {
-		Station item = new Station();
-		item.setName(this.name);
-		
-		return item;
 	}
 }

@@ -34,6 +34,14 @@ public class QueueItemDto {
 		this.user = user;
 	}
 	
+	public QueueItem convert() {
+		QueueItem item = new QueueItem();
+		item.setUrl(this.url);
+		item.setUser(this.user);
+		
+		return item;
+	}
+	
 	@Override
 	public String toString() {
 		try {
@@ -41,13 +49,5 @@ public class QueueItemDto {
 		} catch (JsonProcessingException e) {
 			return super.toString();
 		}
-	}
-	
-	public QueueItem convert() {
-		QueueItem item = new QueueItem();
-		item.setUrl(this.url);
-		item.setUser(this.user);
-		
-		return item;
 	}
 }

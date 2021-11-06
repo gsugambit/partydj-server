@@ -3,6 +3,9 @@ package com.gsugambit.partydjserver.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class Station {
 
 	private String id;
@@ -31,5 +34,14 @@ public class Station {
 	
 	public void setQueue(List<QueueItem> queue) {
 		this.queue = queue;
+	}
+	
+	@Override
+	public String toString() {
+		try {
+			return new ObjectMapper().writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			return super.toString();
+		}
 	}
 }
