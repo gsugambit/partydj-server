@@ -1,6 +1,8 @@
 spring:
   application:
     name: partydj-server
+  banner:
+    location: classpath:/banner.txt
   main:
     banner-mode: log
   mvc:
