@@ -130,7 +130,7 @@ public class QueueItemService {
 	}
 
 	public Station create(Station newStation) {
-		LOGGER.info("User is trying to create station: ", newStation);
+		LOGGER.info("User is trying to create station: {}", newStation);
 		final long stationCount = 
 				STATION_LIST.stream().filter(station -> station.getName().equals(newStation.getName())).count();
 		
@@ -146,7 +146,7 @@ public class QueueItemService {
 		STATION_LIST.add(newStation);
 		STATION_QUEUE_LIST.put(newStation.getId(), new ArrayList<>());
 		
-		LOGGER.info("User created station: ", newStation);
+		LOGGER.info("User created station: {}", newStation);
 		
 		return newStation;
 	}

@@ -8,6 +8,7 @@ EXPOSE 8080
 
 COPY . /code-repo
 WORKDIR /code-repo
+RUN mvn clean install -DskipTests=true
 RUN rm /code-repo/target/*SNAPSHOT.jar
 RUN cp /code-repo/target/*.jar /partydj-server.jar
 RUN rm -rf /code-repo
