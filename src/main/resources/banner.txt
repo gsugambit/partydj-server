@@ -3,6 +3,5 @@ Application Loading...
 | {}  }/ {} \ | {}  }{_   _}\ \/ /    | {}  \.-.| |   { {__  | {_  | {}  }| | | || {_  | {}  }
 | .--'/  /\  \| .-. \  | |   }  {     |     /| {} |   .-._} }| {__ | .-. \\ \_/ /| {__ | .-. \
 `-'   `-'  `-'`-' `-'  `-'   `--'     `----' `----'   `----' `----'`-' `-' `---' `----'`-' `-'
-${project.artifactId}: ${project.version}
-${application.title}: ${application.version}
+@project.artifactId@: @project.version@
 Spring Boot Version: ${spring-boot.version}
