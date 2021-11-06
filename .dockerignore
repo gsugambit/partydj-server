@@ -1,0 +1,7 @@
+target/
+*.md
+
+.settings/
+.classpath
+.dockerignore
+.gitignore
