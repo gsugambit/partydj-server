@@ -174,4 +174,17 @@ public class QueueItemService {
 		returnStation.setQueue(queueItems);
 		return returnStation;
 	}
+
+	public void deleteStation(String stationId) {
+		Optional<Station> stationOp =
+				STATION_LIST.stream()
+				.filter(station -> station.getId().equals(stationId)).findFirst();
+		
+		if(stationOp.isEmpty()) {
+			throw new RuntimeException("cannot find station with id: " + stationId);
+		}
+		
+		STATION_LIST.remove(stationOp.get());
+		STATION_QUEUE_LIST.remove(stationId);
+	}
 }
