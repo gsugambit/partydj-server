@@ -32,4 +32,4 @@ mvnw.cmd
 
 # Local Profiles
 /**/application-youtube.yml
-
+/**/docker-compose-youtube.yml
