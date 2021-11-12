@@ -7,6 +7,7 @@ import com.gsugambit.partydjserver.model.QueueItem;
 public class QueueItemDto {
 
 	private String stationId;
+	private String title;
 	private String url;
 	private String user;
 	
@@ -16,6 +17,14 @@ public class QueueItemDto {
 	
 	public void setStationId(String stationId) {
 		this.stationId = stationId;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 	public String getUrl() {
@@ -38,6 +47,7 @@ public class QueueItemDto {
 		QueueItem item = new QueueItem();
 		item.setUrl(this.url);
 		item.setUser(this.user);
+		item.setTitle(this.title);
 		
 		return item;
 	}

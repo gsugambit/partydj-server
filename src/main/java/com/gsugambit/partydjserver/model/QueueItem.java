@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.Data;
 
-@Data
 public class QueueItem {
 	
 	private String id;
@@ -13,6 +12,7 @@ public class QueueItem {
 	private long index;
 	private String url;
 	private boolean played;
+	private String title;
 	private String user;
 	
 	public String getId() {
@@ -45,6 +45,14 @@ public class QueueItem {
 	
 	public void setPlayed(boolean played) {
 		this.played = played;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 	public String getUrl() {
