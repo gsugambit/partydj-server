@@ -15,6 +15,7 @@ logging:
     root: INFO
     com.gsugambit.partydjserver: TRACE
     org.springframework.web.filter.CommonsRequestLoggingFilter: "DEBUG"
+    com.google.api: TRACE
   file: target/partydj-server.log
   pattern:
     console: "[%d{yyyy-MM-dd'T'HH:mm:ss.SSS}] [%-10mdc{operation-id:-noop}] [%-5level] %logger{50} - %msg [${PID:- }] [%thread] %n"
