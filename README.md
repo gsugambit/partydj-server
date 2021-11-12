@@ -5,7 +5,13 @@ PartyDJ Java Backend Server
 > JDK 11
 Apache Maven
 
-## Running Appliocation
+## Youtube Data Api
+The application uses Google's Youtube Data API in order to retrieve data
+You will need to run with the youtube profile and provide a youtube key
+Environment Variable `YOUTUBE_APIKEY` should be provided when running app locally or in docker.
+https://www.youtube.com/watch?v=N18czV5tj5o&ab_channel=WebbyFan.com
+
+## Running Application
 `mvn clean install`
 `mvn spring-boot:run`
 
