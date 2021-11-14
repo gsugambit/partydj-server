@@ -30,7 +30,8 @@ public class Beans {
         filter.setIncludeQueryString(true);
         filter.setIncludePayload(true);
         filter.setMaxPayloadLength(10000);
-        filter.setIncludeHeaders(true);
+        filter.setIncludeClientInfo(true);
+        filter.setIncludeQueryString(true);
         filter.setAfterMessagePrefix("REQUEST DATA : ");
         return filter;
     }

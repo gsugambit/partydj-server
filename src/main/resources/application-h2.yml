@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:partydj
+    username: sa
+    password: password
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
