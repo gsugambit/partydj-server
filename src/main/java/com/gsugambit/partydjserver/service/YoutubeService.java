@@ -37,7 +37,7 @@ public class YoutubeService {
 			JacksonFactory jacksonFactory, HttpRequestInitializer httpRequestInitializer) {
 		this.apiKey = apiKey;
 		youtube = new YouTube.Builder(netHttpTransport, jacksonFactory, httpRequestInitializer)
-				.setApplicationName("youtube-cmdline-search-sample").build();
+				.setApplicationName("partydj-server").build();
 	}
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(YoutubeService.class);
