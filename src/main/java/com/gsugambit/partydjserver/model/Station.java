@@ -19,6 +19,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gsugambit.partydjserver.utils.ObjectUtils;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -67,10 +68,6 @@ public class Station {
 
 	@Override
 	public String toString() {
-		try {
-			return new ObjectMapper().writeValueAsString(this);
-		} catch (JsonProcessingException e) {
-			return super.toString();
-		}
+		return ObjectUtils.toString(this);
 	}
 }

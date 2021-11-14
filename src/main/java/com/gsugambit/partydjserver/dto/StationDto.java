@@ -1,5 +1,6 @@
 package com.gsugambit.partydjserver.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gsugambit.partydjserver.model.Station;
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 
 import com.gsugambit.partydjserver.model.QueueItem;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @NoArgsConstructor
