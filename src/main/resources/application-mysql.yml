@@ -1,0 +1,17 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      format_sql: true
+      show_sql: true
+      use_sql_comments: true
+      dialect: org.hibernate.dialect.MySQL8Dialect       
+  datasource:
+    url: jdbc:mysql://localhost:19193/partydj
+    username: partydj
+    password: password
+    initialization-mode: never
+    continue-on-error: false
+    testWhileIdle: true
+    validationQuery: "SELECT 1"

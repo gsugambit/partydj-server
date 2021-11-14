@@ -21,7 +21,7 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
 import com.google.api.services.youtube.model.VideoListResponse;
-import com.gsugambit.partydjserver.model.YoutubeSearchResultDto;
+import com.gsugambit.partydjserver.dto.YoutubeSearchResultDto;
 
 @Profile("youtube")
 @Service
@@ -63,9 +63,9 @@ public class YoutubeService {
 			List<SearchResult> searchResultList = searchResponse.getItems();
 			if (!CollectionUtils.isEmpty(searchResultList)) {
 				List<YoutubeSearchResultDto> dtos = searchResultList.stream()
-						.map(result -> new YoutubeSearchResultDto(result.getId().getVideoId(),
-								result.getSnippet().getThumbnails().getDefault(),
-								result.getSnippet().getTitle()))
+						.map(result -> new YoutubeSearchResultDto(result.getSnippet().getThumbnails().getDefault(),
+								result.getSnippet().getTitle(),
+								result.getId().getVideoId()))								
 						.collect(Collectors.toList());
 				
 				String ids = dtos.stream().map(dto -> dto.getVideoId()).collect(Collectors.joining(","));

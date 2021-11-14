@@ -1,6 +1,8 @@
 FROM maven:3.8.3-jdk-11-slim
 
-MAINTAINER gsugambit@gmail.com
+LABEL author="gsugambitcodes@gmail.com"
+LABEL twitch_stream="https://twitch.tv/GSUGambitCodes"
+LABEL github_address="https://github.com/gsugambit/partydj-server"
 
 ENV PORT=8080
 

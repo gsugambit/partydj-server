@@ -15,37 +15,43 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gsugambit.partydjserver.dto.StationDto;
 import com.gsugambit.partydjserver.model.Station;
 import com.gsugambit.partydjserver.service.QueueItemService;
+import com.gsugambit.partydjserver.service.StationService;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/api/v1/station")
 public class StationController {
 
-	private QueueItemService queueService;
+	private StationService stationService;
 	
 	@Autowired
-	public StationController(final QueueItemService queueService) {
-		this.queueService = queueService;
+	public StationController(final StationService stationService) {
+		this.stationService = stationService;
 	}
 	
 	@PostMapping()
 	public Station create(@RequestBody StationDto stationDto) {
-		return queueService.create(stationDto.convert());
+		return stationService.create(stationDto);
 	}
 	
 	@GetMapping
 	public List<Station> get() {
-		return queueService.getAllStations();
+		return stationService.getAllStations();
+	}
+	
+	@GetMapping("/url/{url}")
+	public Station getByUrl(@PathVariable("url") String url) {
+		return stationService.getStationByUrl(url);
 	}
 	
 	@GetMapping("/{stationId}")
 	public Station getStation(@PathVariable String stationId) {
-		return queueService.getStation(stationId);
+		return stationService.getStation(stationId);
 	}
 	
 	@DeleteMapping("/{stationId}")
 	public boolean deleteStation(@PathVariable String stationId) {
-		queueService.deleteStation(stationId);
+		stationService.deleteStation(stationId);
 		return true;
 	}
 }

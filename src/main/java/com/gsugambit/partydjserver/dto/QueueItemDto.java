@@ -4,44 +4,22 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gsugambit.partydjserver.model.QueueItem;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Builder
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor
+@Data
 public class QueueItemDto {
 
 	private String stationId;
 	private String title;
 	private String url;
 	private String user;
-	
-	public String getStation() {
-		return stationId;
-	}
-	
-	public void setStationId(String stationId) {
-		this.stationId = stationId;
-	}
-	
-	public String getTitle() {
-		return title;
-	}
-	
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	
-	public String getUrl() {
-		return url;
-	}
-	
-	public void setUrl(String url) {
-		this.url = url;
-	}
-	
-	public String getUser() {
-		return user;
-	}
-	
-	public void setUser(String user) {
-		this.user = user;
-	}
 	
 	public QueueItem convert() {
 		QueueItem item = new QueueItem();

@@ -3,24 +3,26 @@ package com.gsugambit.partydjserver.dto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gsugambit.partydjserver.model.Station;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import com.gsugambit.partydjserver.model.QueueItem;
 
+@Builder
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor
+@Data
 public class StationDto {
 
 	private String name;
 	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public Station convert() {
+	public static Station convert(StationDto dto) {
 		Station item = new Station();
-		item.setName(this.name);
-		
+		item.setName(dto.getName());
 		return item;
 	}
 	
