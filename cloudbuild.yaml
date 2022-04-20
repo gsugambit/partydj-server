@@ -1,0 +1,9 @@
+steps:
+- name: maven:3.8.3-jdk-11-slim
+  entrypoint: mvn
+  args: ['compile']
+
+
+- name: maven:3.8.3-jdk-11-slim
+  entrypoint: mvn
+  args: ['test']  
