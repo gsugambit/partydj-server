@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: partydj-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: partydj-server
+  template:
+    metadata:
+      labels:
+        name: partydj-server
+    spec:
+      containers:
+        - name: partydj-server
+          image: gcr.io/party-dj-347804/partydj-server:latest
+          ports:
+            - containerPort: 8080
