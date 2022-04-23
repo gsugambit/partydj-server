@@ -26,7 +26,7 @@
 	</properties>
 	
 	<scm>
-		<developerConnection>scm:git:git@github.com/gsugambit/partydj-server.git</developerConnection>
+		<developerConnection>scm:git:git@github.com:gsugambit/partydj-server.git</developerConnection>
 	</scm>
 
 	<dependencyManagement>
