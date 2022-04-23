@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.gsugambit</groupId>
 	<artifactId>partydj-server</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>partydj-server</name>
 	<description>Server Project for Party DJ</description>
 	<properties>
@@ -17,12 +17,17 @@
 		<project.youtube.version>v3-rev182-1.22.0</project.youtube.version>
 
 		<!-- Maven Build Properties -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<encoding>UTF-8</encoding>
+		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
 		<maven.compiler.target>11</maven.compiler.target>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.build.timestamp.format>yyyy-MM-dd_HH-mm</maven.build.timestamp.format>
 		<finalName>${project.artifactId}-${git.commit.id.abbrev}</finalName>
 	</properties>
+	
+	<scm>
+		<developerConnection>scm:git:git@github.com:gsugambit/partydj-server.git</developerConnection>
+	</scm>
 
 	<dependencyManagement>
 		<dependencies>
@@ -202,6 +207,14 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>3.0.0-M5</version>
+				<configuration>
+					<tagNameFormat>@{project.version}</tagNameFormat>
 				</configuration>
 			</plugin>
 		</plugins>
