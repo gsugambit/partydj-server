@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.gsugambit</groupId>
 	<artifactId>partydj-server</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>partydj-server</name>
 	<description>Server Project for Party DJ</description>
 	<properties>
