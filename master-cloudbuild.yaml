@@ -9,17 +9,17 @@ steps:
   entrypoint: mvn
   args: ['test']  
 
-- 'docker-build'
+- id: 'docker-build'
   name: 'gcr.io/cloud-builders/docker'
   waitFor: ['test']
   args: ['build', '-t', 'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA', '-t', 'gcr.io/$PROJECT_ID/$REPO_NAME:latest', '.']
 
-- 'docker-push-commit'
+- id: 'docker-push-commit'
   name: 'gcr.io/cloud-builders/docker'
   waitFor: ['docker-build']
   args: ['push', 'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA']
 
-- 'docker push latest'
+- id: 'docker-push-latest'
   name: 'gcr.io/cloud-builders/docker'
   waitFor: ['docker-build']
   args: ['push', 'gcr.io/$PROJECT_ID/$REPO_NAME:latest']
