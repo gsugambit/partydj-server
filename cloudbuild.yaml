@@ -12,6 +12,8 @@ steps:
 
 - id: 'branch-build'
   name: 'gcr.io/cloud-builders/docker'
+  waitFor:
+  - 'test'
   entrypoint: 'bash'
   args:  
   - '-c'
@@ -20,6 +22,8 @@ steps:
 
 - id: 'master-docker-build'
   name: 'gcr.io/cloud-builders/docker'
+  waitFor:
+  - 'test'
   entrypoint: 'bash'  
   args:
   - '-c'
