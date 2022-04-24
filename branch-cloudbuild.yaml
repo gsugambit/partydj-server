@@ -9,14 +9,14 @@ steps:
   entrypoint: mvn
   args: ['test']  
 
-- 'docker build'
+- id: 'docker-build'
   name: 'gcr.io/cloud-builders/docker'
   waitFor: ['test']
   args: ['build', '-t', 'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA', '.']
 
-- 'docker push commit'
+- 'docker-push-commit'
   name: 'gcr.io/cloud-builders/docker'
-  waitFor: ['docker build']
+  waitFor: ['docker-build']
   args: ['push', 'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA']
 
 images: [
