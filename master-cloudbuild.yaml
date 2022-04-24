@@ -1,0 +1,30 @@
+steps:
+- id: 'compile'
+  name: maven:3.8.3-jdk-11-slim
+  entrypoint: mvn
+  args: ['compile']
+
+- id: 'test'
+  name: maven:3.8.3-jdk-11-slim
+  entrypoint: mvn
+  args: ['test']  
+
+- id: 'docker-build'
+  name: 'gcr.io/cloud-builders/docker'
+  waitFor: ['test']
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA', '-t', 'gcr.io/$PROJECT_ID/$REPO_NAME:latest', '.']
+
+- id: 'docker-push-commit'
+  name: 'gcr.io/cloud-builders/docker'
+  waitFor: ['docker-build']
+  args: ['push', 'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA']
+
+- id: 'docker-push-latest'
+  name: 'gcr.io/cloud-builders/docker'
+  waitFor: ['docker-build']
+  args: ['push', 'gcr.io/$PROJECT_ID/$REPO_NAME:latest']
+
+images: [
+  'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA',
+  'gcr.io/$PROJECT_ID/$REPO_NAME:latest'
+]
