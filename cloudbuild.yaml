@@ -15,21 +15,17 @@ steps:
   waitFor: ['test']
   entrypoint: 'bash'  
   args:
-  - '-c'
-  - |
-    [["$BRANCH_NAME" == "master" ]] && docker build -t gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA -t gcr.io/$PROJECT_ID/$REPO_NAME:latest . || exit 0
+  - '-c [["$BRANCH_NAME" == "master" ]] && docker build -t gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA -t gcr.io/$PROJECT_ID/$REPO_NAME:latest . || exit 0'
 
 - id: 'branch-docker-build'
   name: 'gcr.io/cloud-builders/docker'
   waitFor: ['test']
   entrypoint: 'bash'
   args:  
-  - '-c'
-  - |
-    [["$BRANCH_NAME" != "master" ]] && docker build -t gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA . || exit 0
+  - '-c [["$BRANCH_NAME" != "master" ]] && docker build -t gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA . || exit 0'
 
 - id: 'docker-tag-push'
   name: 'gcr.io/cloud-builders/docker'
   waitFor: ['master-docker-build', 'branch-docker-build']
-  args: ['push', '--all-tags', 'gcr.io/$PROJECT_ID/$REPO_NAME']
+  args: ['image', 'push', '--all-tags', 'gcr.io/$PROJECT_ID/$REPO_NAME']
 
