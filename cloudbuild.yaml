@@ -12,8 +12,7 @@ steps:
 
 - id: 'branch-build'
   name: 'gcr.io/cloud-builders/docker'
-  waitFor:
-  - 'test'
+  waitFor: 'test'
   entrypoint: 'bash'
   args:  
   - '-c'
@@ -22,8 +21,7 @@ steps:
 
 - id: 'master-docker-build'
   name: 'gcr.io/cloud-builders/docker'
-  waitFor:
-  - 'test'
+  waitFor: 'test'
   entrypoint: 'bash'  
   args:
   - '-c'
@@ -40,7 +38,6 @@ steps:
 
 - id: 'docker-tag-push'
   name: 'gcr.io/cloud-builders/docker'
-  waitFor:
-  - ['master-docker-build', 'branch-docker-build']
+  waitFor: ['master-docker-build', 'branch-docker-build']
   args: ['push', '--all-tags', 'gcr.io/$PROJECT_ID/$REPO_NAME']
 
