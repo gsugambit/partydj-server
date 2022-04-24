@@ -1,16 +1,42 @@
 steps:
-- name: maven:3.8.3-jdk-11-slim
+- id: 'compile'
+  name: maven:3.8.3-jdk-11-slim
   entrypoint: mvn
   args: ['compile']
 
 
-- name: maven:3.8.3-jdk-11-slim
+- id: 'test'
+  name: maven:3.8.3-jdk-11-slim
   entrypoint: mvn
   args: ['test']  
 
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA', '.']
+- id: 'branch-build'
+  name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args:  
+  - '-c'
+  - |
+    [["$BRANCH_NAME" == "master" ]] && docker build -t gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA .
 
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA']
+- id: 'master-docker-build'
+  name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'  
+  args:
+  - '-c'
+  - |
+    [["$BRANCH_NAME" == "master" ]] && docker build -t gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA -t gcr.io/$PROJECT_ID/$REPO_NAME:latest .
+
+- id: 'branch-docker-build'
+  name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args:  
+  - '-c'
+  - |
+    [["$BRANCH_NAME" == "master" ]] && docker push -t gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA .
+
+- id: 'docker-tag-push'
+  name: 'gcr.io/cloud-builders/docker'
+  waitFor:
+  - ['master-docker-build', 'branch-docker-build']
+  args: ['push', '--all-tags', 'gcr.io/$PROJECT_ID/$REPO_NAME']
 
